@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Movie Recommender System</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="http://localhost:5000">Movie Recommender System</a>
+    </nav>
+    <div>
+        <br><br>
+    </div>
+
+
+    <div class="jumbotron container">
+        <form action="http://localhost:5000/movie" method="POST">
+            <div>
+                <label for="Movie">
+                    <h6>Search for Movies</h6>
+                </label>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <input class="form-control" type="text" name="Movie">
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+
+            </div>
+        </form>
+
+
+        <!-- <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+            featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+
+        {% if movie !=null %}
+        <div class="card">
+            <div class="card-body" style="width: auto;"></div>
+            <h5 class="card-title">{{movie}}</h5>
+            <h6>Genres</h6>
+            <ul>
+                {% for cat in category %}
+                <li>{{cat}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <br><br><br>
+
+
+    <div class="card form-row" style=" display: inline">
+        <span>
+            <h4>Recommended Movies: </h4>
+        </span>
+        {% for movie in l %}
+        <div class="form-group col-md-1 card-body" style="display: inline; width: 400px;">
+            <h5 style="color: blue;">{{movie['title']}}</h5>
+            <h6>Genres:</h6>
+            {% for genre in movie['genres'] %}
+            {{genre}},
+            {% endfor %}
+            <h6>Rating:</h6>
+            {{movie['rating']}}
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
